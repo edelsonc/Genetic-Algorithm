@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 """
 A simple application of a genetic algorithm to a well known classification
-proble -- the student exam problem
+problem -- the student exam problem
 
 author: edelsonc
 date: 7/14/2017
@@ -157,7 +157,7 @@ passed = [ 0, 0, 0, 0, 0, 0, 1, 0, 1, 0,
 
 if __name__ == "__main__":
     # initialize parameters
-    p_size = 20
+    p_size = 40
     param_bounds = [-10, 10]
     n_params = 2
     per_p = 0.3
@@ -170,7 +170,7 @@ if __name__ == "__main__":
     # begin optimizations
     p = Population(p_size, loss_function, generate_individual, mutate)
     p.generate_population(*param_bounds, n_params)
-    for i in range(10000):
+    for i in range(1000):
         p.eval_pop_fitness(hours_args, passed_args)
         p.next_gen(per_p, per_s, per_k, *param_bounds, n_params)
         p.mutate(p_mute,*param_bounds)
