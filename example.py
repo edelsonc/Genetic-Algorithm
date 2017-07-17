@@ -18,7 +18,7 @@ def logistic_function(beta, h):
     return 1/(1 + math.exp(-(beta[0] + beta[1]*h)))
 
 
-def loss_function(beta, hour, passed):
+def loss_function(beta, passed, hour):
     """square error loss function; used to measure fitness"""
     sse = 0
     for h,p in zip(hour,passed):
@@ -50,14 +50,15 @@ if __name__ == "__main__":
     per_k = 0.5
     per_s = 0.1
     p_mute = 0.05
-    hours_args = [hours for i in range(p_size)]
-    passed_args = [passed for i in range(p_size)]
+    hours_args = hours # [hours for i in range(p_size)]
+    passed_args = passed # [passed for i in range(p_size)]
 
     # begin optimizations
     p = Population(p_size, loss_function, generate_individual, mutate)
     p.generate_population(*param_bounds, n_params)
+    p.set_train(passed, hours)
     for i in range(1000):
-        p.eval_pop_fitness(hours_args, passed_args)
+        p.eval_pop_fitness() #hours_args, passed_args)
         p.next_gen(per_p, per_s, per_k, *param_bounds, n_params)
         p.mutate(p_mute,*param_bounds)
         print("Average fitness: ", p.average_fitness())
