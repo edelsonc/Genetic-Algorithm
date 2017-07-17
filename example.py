@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 """
-Example using the Population calss of the genetic_algorithm module. This is the
+Example using the Population class of the genetic_algorithm module. This is the
 well known classification problem of students passing an exam based on the
 number of hours spend studying. To solve this problem here, logistic regression
 is used.
@@ -50,15 +50,13 @@ if __name__ == "__main__":
     per_k = 0.5
     per_s = 0.1
     p_mute = 0.05
-    hours_args = hours # [hours for i in range(p_size)]
-    passed_args = passed # [passed for i in range(p_size)]
 
     # begin optimizations
     p = Population(p_size, loss_function, generate_individual, mutate)
     p.generate_population(*param_bounds, n_params)
     p.set_train(passed, hours)
     for i in range(1000):
-        p.eval_pop_fitness() #hours_args, passed_args)
+        p.eval_pop_fitness()
         p.next_gen(per_p, per_s, per_k, *param_bounds, n_params)
         p.mutate(p_mute,*param_bounds)
         print("Average fitness: ", p.average_fitness())
